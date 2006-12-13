@@ -25,7 +25,7 @@ Adding a driver with extra arguments. driver_arguments will be used to instancti
  $drivers->add('file', { Directory => '/tmp' });
  $drivers->add('mysql', { Handle => $dbh });
 
-NOTE: session data is read from drivers in the added order. In above example, reading from 'file' first, and then from 'mysql'(only when cannot read from 'file')
+NOTE: session data is read from drivers in the added order. In above example, reading from 'file' first, and then from 'mysql' (only when cannot read from 'file'). On the other hand, When writing session data, the order is 'mysql' -> 'file'.
 
 =cut
 sub add {

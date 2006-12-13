@@ -7,7 +7,7 @@ use Carp qw(croak);
 use CGI::Session::Driver;
 
 @CGI::Session::Driver::aggregator::ISA = ( "CGI::Session::Driver" );
-$CGI::Session::Driver::aggregator::VERSION = "0.01";
+$CGI::Session::Driver::aggregator::VERSION = "0.02";
 
 sub drivers {
     my $self = shift;
@@ -117,7 +117,7 @@ CGI::Session::Driver::aggregator - CGI::Session driver to aggregate some CGI::Se
     $drivers->add('mysql', { Handle => $dbh });
     $s = CGI::Session->new('driver:aggregator', $sid, { Drivers => $drivers });
     $s->param(hey => 'Blur blur blur!');
-    # ----> Store datas into file and mysql!!
+    # ----> Store datas into mysql and file!!
     
     $value = $s->param('hey');
     # ----> Read datas from file (When cannot find, then from mysql)
