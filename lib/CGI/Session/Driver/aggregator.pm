@@ -7,13 +7,10 @@ use Carp qw(croak);
 use CGI::Session::Driver;
 
 @CGI::Session::Driver::aggregator::ISA = ( "CGI::Session::Driver" );
-$CGI::Session::Driver::aggregator::VERSION = "0.02";
+$CGI::Session::Driver::aggregator::VERSION = "0.03";
 
 sub drivers {
     my $self = shift;
-    if (!$self->{drivers}) {
-        $self->{drivers} = [];
-    }
     return @{ $self->{drivers} };
 }
 
@@ -47,17 +44,14 @@ sub retrieve {
     }
 
     return 0;
-#warn "retrieve(): sid=$sid, $rv\n";
 }
-
 
 sub store {
     my $self = shift;
     my ($sid, $datastr) = @_;
     croak "store(): usage error" unless $sid && $datastr;
 
-#warn "store(): sid=$sid, $datastr\n";
-    for my $driver ($self->drivers) {
+    for my $driver (reverse $self->drivers) {
         $driver->store(@_);
     }
 
@@ -69,7 +63,7 @@ sub remove {
     my ($sid) = @_;
     croak "remove(): usage error" unless $sid;
 
-    for my $driver ($self->drivers) {
+    for my $driver (reverse $self->drivers) {
         $driver->remove(@_);
     }
     

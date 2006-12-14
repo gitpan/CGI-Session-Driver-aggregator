@@ -19,4 +19,5 @@ $drivers->add('file', { Directory => "$dir/_aggregator" });
 
 my $session = CGI::Session->new('driver:aggregator', undef, { Drivers => $drivers });
 $session->param(a => 'b');
+$session->flush();
 is('b', $session->param('a'), 'param');
